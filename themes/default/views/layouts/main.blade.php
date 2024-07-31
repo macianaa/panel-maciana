@@ -132,7 +132,7 @@
                     <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="mr-1 d-lg-inline text-gray-600">
-                            <small><i class="fas fa-coins mr-2"></i></small>{{ Auth::user()->credits() }}
+                            <small><i class="fas fa-coins mr-2"></i></small>{{ Auth::user()->credits() }} {{ CREDITS_DISPLAY_NAME }}
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
