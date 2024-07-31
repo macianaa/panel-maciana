@@ -246,6 +246,17 @@ class Pterodactyl
      */
     public static function createServer(Server $server, Egg $egg, int $allocationId)
     {
+        // Calculate the deployment fee
+        $hourlyPrice = $server->product->getHourlyPrice();
+        $deploymentFee = $hourlyPrice * 24 * 31 * 0.15;
+
+        /** @var User $user */
+        $user = $server->user;
+
+        // Deduct the deployment fee from user's credits
+        $user->decrement('credits', $deploymentFee);
+
+        // Proceed with server creation
         return self::client()->post('/application/servers', [
             'name' => $server->name,
             'external_id' => $server->id,
@@ -271,6 +282,7 @@ class Pterodactyl
             ],
         ]);
     }
+
 
     public static function suspendServer(Server $server)
     {

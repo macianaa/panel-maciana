@@ -328,6 +328,15 @@ class ServerController extends Controller
             $priceupgrade = 0;
         }
         if ($user->credits >= $priceupgrade && $user->credits >= $newProduct->minimum_credits) {
+            $newHourlyPrice = $newProduct->getHourlyPrice();
+            $deploymentFee = $newHourlyPrice * 24 * 31 * 0.15;
+
+            /** @var User $user */
+            $user = $server->user;
+
+            // Deduct the deployment fee from user's credits
+            $user->decrement('credits', $deploymentFee);
+        
             $server->product_id = $request->product_upgrade;
             $server->update();
             $server->allocation = $serverAttributes['allocation'];

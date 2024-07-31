@@ -209,10 +209,17 @@
                                                 </li>
                                                 <li class="d-flex justify-content-between">
                                                     <span class="d-inline-block"><i class="fa fa-coins"></i>
-                                                        {{ __('Required') }} {{ CREDITS_DISPLAY_NAME }}
-                                                        {{ __('to create this server') }}</span>
+                                                        {{ __('Required') }}
+                                                        </span>
                                                     <span class="d-inline-block"
-                                                        x-text="product.minimum_credits == -1 ? {{ config('SETTINGS::USER:MINIMUM_REQUIRED_CREDITS_TO_MAKE_SERVER') }} : product.minimum_credits"></span>
+                                                        <span x-text="(0.15 * product.price).toFixed(2) + ' {{ CREDITS_DISPLAY_NAME }}'"></span>
+                                                </li>
+                                                <li class="d-flex justify-content-between">
+                                                    <span class="d-inline-block"><i class="fa fa-clock"></i>
+                                                        {{ __('Billing type') }}
+                                                        </span>
+                                                    <span class="d-inline-block"
+                                                        <span x-text="'{{ __('hourly') }}'"></span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -228,7 +235,7 @@
                                                 {{ __('Price') }}:
                                             </span>
                                             <span class="d-inline-block"
-                                                x-text="product.price + ' {{ CREDITS_DISPLAY_NAME }}'"></span>
+                                                x-text="product.price + ' {{ CREDITS_DISPLAY_NAME }}/mo'"></span>
                                         </div>
                                     </div>
                                     <div>
